@@ -1,0 +1,20 @@
+//2. Create a table STUDENT have the fields(roll_no, name, age, address, gender)and add following constraints on it.
+Roll_no – Primary key
+Name – does not allow null values
+Age- must be in between (0-99), does not allow null values
+Gender- default value is ‘m’ 
+
+
+mysql>roll_no int primary key,name varchar(50)not null,age int not null check(age between 0 and 99),address varchar(100)not null,gender char(1)default 'm');
+
+mysql> desc STUDENT;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| roll_no | int          | NO   | PRI | NULL    |       |
+| name    | varchar(50)  | NO   |     | NULL    |       |
+| age     | int          | NO   |     | NULL    |       |
+| address | varchar(100) | NO   |     | NULL    |       |
+| gender  | char(1)      | YES  |     | m       |       |
++---------+--------------+------+-----+---------+-------+
+
