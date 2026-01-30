@@ -1,0 +1,15 @@
+//3. Create a temporary table STUDENT1 of STUDENT relation. 
+
+mysql> create temporary table STUDENT1 as select * from STUDENT;
+
+mysql> desc STUDENT1;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| roll_no | int          | NO   |     | NULL    | NULL  |
+| name    | varchar(50)  | NO   |     | NULL    | NULL  |
+| age     | int          | NO   |     | NULL    | NULL  |
+| address | varchar(100) | NO   |     | NULL    | NULL  |
+| gender  | char(1)      | YES  |     | m       | NULL  |
++---------+--------------+------+-----+---------+-------+
+
