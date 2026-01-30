@@ -1,0 +1,104 @@
+//5. Create an INVOICE database and having following tables.
+Customer(id, name, address, city, ph_no)
+Product(pid, pname, price (default 0))
+Invoice_master(inv_id, cust_id(FK), inv_date)
+Invoice_item(inv_id (FK), pid(FK), quantity)
+
+
+mysql> create database INVOICE;
+
+mysql> use INVOICE;
+Database changed
+mysql> create table Customer(cust_id int primary key, name varchar(40)not null,address varchar(100)not null,city varchar(20)not null,ph_no int not null);
+
+mysql> desc Customer;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| cust_id | int          | NO   | PRI | NULL    |       |
+| name    | varchar(40)  | NO   |     | NULL    |       |
+| address | varchar(100) | NO   |     | NULL    |       |
+| city    | varchar(20)  | NO   |     | NULL    |       |
+| ph_no   | int          | NO   |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+
+mysql> create table Product(P_id int primary key,p_name varchar(40)not null,price decimal(10,2)default 0);
+mysql> desc Product;
++--------+---------------+------+-----+---------+-------+
+| Field  | Type          | Null | Key | Default | Extra |
++--------+---------------+------+-----+---------+-------+
+| P_id   | int           | NO   | PRI | NULL    |       |
+| p_name | varchar(40)   | NO   |     | NULL    |       |
+| price  | decimal(10,2) | YES  |     | 0.00    |       |
++--------+---------------+------+-----+---------+-------+
+
+mysql> create table invoice_master(inv_id int primary key,cust_id int,inv_date int not null,foreign key(cust_id)references Customer(cust_id));
+mysql> desc invoice_master;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| inv_id   | int  | NO   | PRI | NULL    |       |
+| cust_id  | int  | YES  | MUL | NULL    |       |
+| inv_date | int  | NO   |     | NULL    |       |
++----------+------+------+-----+---------+-------+
+
+
+mysql> create table invoice_item(inv_id int not null,p_id int,quantity int not null,foreign key(p_id)references Product(p_id),foreign key(inv_id)references invoice_master(inv_id));
+mysql> desc invoice_item;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| inv_id   | int  | NO   | MUL | NULL    |       |
+| p_id     | int  | YES  | MUL | NULL    |       |
+| quantity | int  | NO   |     | NULL    |       |
++----------+------+------+-----+---------+-------+
+
+
+//alter
+mysql> alter table Customer modify cust_id int,modify name varchar(40),modify address varchar(100),modify city varchar(20),modify
+ ph_no int;
+ mysql> desc Customer;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| cust_id | int          | NO   | PRI | NULL    |       |
+| name    | varchar(40)  | YES  |     | NULL    |       |
+| address | varchar(100) | YES  |     | NULL    |       |
+| city    | varchar(20)  | YES  |     | NULL    |       |
+| ph_no   | int          | YES  |     | NULL    |       |
++---------+--------------+------+-----+---------+-------+
+
+
+mysql> alter table Product modify p_id int,modify p_name varchar(40);
+mysql> desc Product;
++--------+---------------+------+-----+---------+-------+
+| Field  | Type          | Null | Key | Default | Extra |
++--------+---------------+------+-----+---------+-------+
+| p_id   | int           | NO   | PRI | NULL    |       |
+| p_name | varchar(40)   | YES  |     | NULL    |       |
+| price  | decimal(10,2) | YES  |     | 0.00    |       |
++--------+---------------+------+-----+---------+-------+
+
+mysql> alter table invoice_master modify inv_id int,modify inv_date int;
+mysql> desc invoice_master;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| inv_id   | int  | NO   | PRI | NULL    |       |
+| cust_id  | int  | YES  | MUL | NULL    |       |
+| inv_date | int  | YES  |     | NULL    |       |
++----------+------+------+-----+---------+-------+
+
+mysql> alter table invoice_item modify inv_id int,modify quantity int;
+mysql> desc invoice_item;
++----------+------+------+-----+---------+-------+
+| Field    | Type | Null | Key | Default | Extra |
++----------+------+------+-----+---------+-------+
+| inv_id   | int  | YES  | MUL | NULL    |       |
+| p_id     | int  | YES  | MUL | NULL    |       |
+| quantity | int  | YES  |     | NULL    |       |
++----------+------+------+-----+---------+-------+
+
+
+
+
