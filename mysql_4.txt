@@ -1,0 +1,15 @@
+//4. Create a duplicate table of EMPLOYEE. 
+
+mysql> create table EMPLOYEE_DUP as select * from EMPLOYEE;
+
+mysql> desc EMPLOYEE_DUP;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| emp_id   | int         | NO   |     | NULL    |       |
+| name     | varchar(20) | NO   |     | NULL    |       |
+| city     | varchar(20) | NO   |     | NULL    |       |
+| DOB      | varchar(20) | NO   |     | NULL    |       |
+| adhar_no | int         | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
