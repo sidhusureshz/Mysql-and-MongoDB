@@ -1,0 +1,14 @@
+//create a table EMPLOYEE hae the following fields (emp_id,name,city,dob,adhar_no)
+mysql>create table EMPLOYEE(emp_id int not null,name varchar(20)not null,city varchar(20)not nul,dob int not null,adhar_no int not null,primary key(emp_id));
+mysql> desc EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| emp_id   | int         | NO   | PRI | NULL    |       |
+| name     | varchar(20) | NO   |     | NULL    |       |
+| city     | varchar(20) | NO   |     | NULL    |       |
+| DOB      | varchar(20) | NO   |     | NULL    |       |
+| adhar_no | int         | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+
