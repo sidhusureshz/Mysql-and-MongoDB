@@ -1,0 +1,105 @@
+//1. Add a column ‘SSN’ at the first position in the table EMPLOYEE 
+
+mysql> use sidhu;
+mysql> alter table EMPLOYEE add SSN varchar(50) first;
+
+mysql> desc EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SSN      | int         | YES  |     | NULL    |       |
+| emp_id   | int         | NO   | PRI | NULL    |       |
+| name     | varchar(20) | NO   |     | NULL    |       |
+| city     | varchar(20) | NO   |     | NULL    |       |
+| DOB      | varchar(20) | NO   |     | NULL    |       |
+| adhar_no | int         | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+
+//2. Change the data type of the column ‘DOB’ in year the table EMPLOYEE 
+
+mysql> alter table EMPLOYEE modify DOB year;
+mysql> desc EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SSN      | int         | YES  |     | NULL    |       |
+| emp_id   | int         | NO   | PRI | NULL    |       |
+| name     | varchar(20) | NO   |     | NULL    |       |
+| city     | varchar(20) | NO   |     | NULL    |       |
+| DOB      | year        | YES  |     | NULL    |       |
+| adhar_no | int         | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+//3. Delete the column ‘emp_id’ the table EMPLOYEE. 
+
+mysql> alter table EMPLOYEE drop emp_id;
+
+mysql> desc EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SSN      | int         | YES  |     | NULL    |       |
+| name     | varchar(20) | NO   |     | NULL    |       |
+| city     | varchar(20) | NO   |     | NULL    |       |
+| DOB      | year        | YES  |     | NULL    |       |
+| adhar_no | int         | NO   |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+//4. Add the constraint unique for columns ‘SSN, ‘adhar_no’ the table EMPLOYEE
+ 
+mysql> alter table EMPLOYEE  add constraint ssn_adhar unique(SSN,adhar_no);
+mysql> desc EMPLOYEE;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SSN      | int         | YES  | UNI | NULL    |       |
+| name     | varchar(20) | NO   |     | NULL    |       |
+| city     | varchar(20) | NO   |     | NULL    |       |
+| DOB      | year        | YES  |     | NULL    |       |
+| adhar_no | int         | YES  | UNI | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+
+// 5. Delete the NULL constraint of ‘age’ in the STUDENT table. 
+
+mysql> alter table STUDENT modify age int;
+mysql> desc STUDENT;
++---------+--------------+------+-----+---------+-------+
+| Field   | Type         | Null | Key | Default | Extra |
++---------+--------------+------+-----+---------+-------+
+| roll_no | int          | NO   | PRI | NULL    |       |
+| name    | varchar(50)  | NO   |     | NULL    |       |
+| age     | int          | YES  |     | NULL    |       |
+| address | varchar(100) | NO   |     | NULL    |       |
+| gender  | char(1)      | YES  |     | m       |       |
++---------+--------------+------+-----+---------+-------+
+
+ //6. Change the table name EMPLOYEE as PERSON
+ 
+ mysql> rename table EMPLOYEE to PERSON;
+mysql> show tables;
++-----------------+
+| Tables_in_sidhu |
++-----------------+
+| EMPLOYEE_DUP    |
+| PERSON          |
+| STUDENT         |
+| course          |
+| employee        |
+| student         |
++-----------------+
+
+//7. Delete the table STUDENT1.
+mysql> drop table student;
+mysql> show tables;
++-----------------+
+| Tables_in_sidhu |
++-----------------+
+| EMPLOYEE_DUP    |
+| PERSON          |
+| STUDENT         |
+| course          |
+| employee        |
++-----------------+
+
+
