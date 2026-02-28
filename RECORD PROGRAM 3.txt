@@ -1,0 +1,129 @@
+3. TCL & DCL COMMANDS
+
+
+a) TCL COMMANDS 
+(commit,rollback,savepoint)
+mysql> set autocommit=0;
+Query OK, 0 rows affected (0.01 sec)
+
+
+mysql> INSERT INTO EMPLOYEE VALUES(100,'SIDHU','WAYANAD','2004-12-21',87872);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> COMMIT;
+Query OK, 0 rows affected (0.00 sec)
+
+
+mysql> delete from EMPLOYEE WHERE NAME='ABRAHAM';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+ysql> INSERT INTO EMPLOYEE VALUES(1000,'CHEN','WAYANAD','2005-12-21',87889);
+ERROR 1062 (23000): Duplicate entry '1000' for key 'EMPLOYEE.SSN'
+mysql> INSERT INTO EMPLOYEE VALUES(1090,'CHEN','WAYANAD','2005-12-21',87889);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SAVEPOINT C;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++------+-------+-----------+------------+----------+
+| SSN  | name  | city      | DOB        | adhar_no |
++------+-------+-----------+------------+----------+
+|  103 | JOHN  | KOCHI     | 2000-01-15 |   809012 |
+|  105 | ISAAC | BANGALORE | 2000-03-30 |   802332 |
+|  100 | SIDHU | WAYANAD   | 2004-12-21 |    87872 |
+| 1000 | REN   | WAYANAD   | 2004-12-21 |    87834 |
+| 1090 | CHEN  | WAYANAD   | 2005-12-21 |    87889 |
++------+-------+-----------+------------+----------+
+5 rows in set (0.00 sec)
+
+mysql> DELETE FROM EMPLOYEE WHERE name='CHEN';
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DELETE FROM EMPLOYEE WHERE name='REN';
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++------+-------+-----------+------------+----------+
+| SSN  | name  | city      | DOB        | adhar_no |
++------+-------+-----------+------------+----------+
+|  103 | JOHN  | KOCHI     | 2000-01-15 |   809012 |
+|  105 | ISAAC | BANGALORE | 2000-03-30 |   802332 |
+|  100 | SIDHU | WAYANAD   | 2004-12-21 |    87872 |
++------+-------+-----------+------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> ROLLBACK TO C;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE;
++------+-------+-----------+------------+----------+
+| SSN  | name  | city      | DOB        | adhar_no |
++------+-------+-----------+------------+----------+
+|  103 | JOHN  | KOCHI     | 2000-01-15 |   809012 |
+|  105 | ISAAC | BANGALORE | 2000-03-30 |   802332 |
+|  100 | SIDHU | WAYANAD   | 2004-12-21 |    87872 |
+| 1000 | REN   | WAYANAD   | 2004-12-21 |    87834 |
+| 1090 | CHEN  | WAYANAD   | 2005-12-21 |    87889 |
++------+-------+-----------+------------+----------+
+5 rows in set (0.00 sec)
+
+
+
+b) DCL COMMAND 
+
+
+ Create two users user1, user2 
+ 1. GRANT:   Give insert and select privilege to user 1 on customer table in the invoice database.
+Give update and delete privilege to user 2 on all tables in the invoice database. 
+ 2. REVOKE:   Remove delete privilege of user 2.
+
+mysql> create user 'user1@localhost' identified by 'pass#123A';
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> Grant select on sidhu.EMPLOYEE to 'user1@localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show grants for 'user1@localhost';
++-------------------------------------------------------------+
+| Grants for user1@localhost@%                                |
++-------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `user1@localhost`@`%`                 |
+| GRANT SELECT ON `user1`.`EMPLOYEE` TO `user1@localhost`@`%` |
++-------------------------------------------------------------+
+
+mysql> create user 'user2@localhost' identified by 'pass#123A';
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> Grant update on sidhu.EMPLOYEE to 'user2@localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> Grant delete on sidhu.EMPLOYEE to 'user2@localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show grants for 'user2@localhost';
++---------------------------------------------------------------------+
+| Grants for user2@localhost@%                                        |
++---------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `user2@localhost`@`%`                         |
+| GRANT UPDATE, DELETE ON `sidhu`.`EMPLOYEE` TO `user2@localhost`@`%` |
++---------------------------------------------------------------------+
+2 rows in set (0.00 sec)
+mysql> REVOKE update ON sidhu.EMPLOYEE FROM 'user2@localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> REVOKE delete ON sidhu.EMPLOYEE FROM 'user2@localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> show grants for 'user2@localhost';
++---------------------------------------------+
+| Grants for user2@localhost@%                |
++---------------------------------------------+
+| GRANT USAGE ON *.* TO `user2@localhost`@`%` |
++---------------------------------------------+
+1 row in set (0.00 sec)
+
+
