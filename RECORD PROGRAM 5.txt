@@ -1,0 +1,21 @@
+MySQL-RECORD PROGRAM-5 -AGGREAGTE, GROUP BY
+
+--//1. Find the minimum, maximum, and average price of products.
+
+mysql> select min(price) as minimum_price, max(price) as maximum_price, avg(price) as average_price from Product;
++---------------+---------------+---------------+
+| minimum_price | maximum_price | average_price |
++---------------+---------------+---------------+
+|         10.20 |       9178.98 |   2587.175000 |
++---------------+---------------+---------------+
+
+
+--//2. Find the number of customers in each city, and only include cities with more than 2 customers.
+
+mysql> select city,count(*)customers from Customer group by city having count(*) >= 2;
++----------+-----------+
+| city     | customers |
++----------+-----------+
+| Thrissur |         2 |
++----------+-----------+
+
