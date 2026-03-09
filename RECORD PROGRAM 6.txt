@@ -1,0 +1,50 @@
+ACCESSING DATABASE:(SUB QUERY)
+
+1.List the product names,only include those purchased quantity more than 3
+mysql> select * from invoice_item;
++--------+------+----------+
+| inv_id | p_id | quantity |
++--------+------+----------+
+|   1002 |  203 |        5 |
+|   1002 |  203 |        5 |
+|   1001 |  202 |        5 |
+|   1001 |  101 |        2 |
++--------+------+----------+
+4 rows in set (0.01 sec)
+
+mysql> select p_name from Product where p_id in(select p_id from invoice_item where quantity>3);
++----------------+
+| p_name         |
++----------------+
+| Leather Wallet |
+| Men Jeans      |
++----------------+
+
+2.Find the product that has no sale
+
+mysql> select p_name from Product where p_id not in(select p_id from invoice_item );
++-----------------+
+| p_name          |
++-----------------+
+| Notebook        |
+| Men Shirt       |
+| Wrist Watch     |
+| Formal Shoes    |
+| School Bag      |
+| Bluetooth Mouse |
+| Water Bottle    |
++-----------------+
+
+3.list the name of all customers who have purchased at least 2 products,making sure that no duplicate name are in the result.
+
+mysql> select distinct name from Customer where cust_id in (select cust_id from invoice_master where inv_id in (select inv_id from invoice_item group by inv_id having count(p_id) >= 2));
++----------+
+| name     |
++----------+
+| Sidhu    |
+| Abhishek |
+| Amit     |
+| Neha     |
++----------+
+4 rows in set (0.00 sec)
+
