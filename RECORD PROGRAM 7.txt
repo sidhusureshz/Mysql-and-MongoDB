@@ -1,0 +1,66 @@
+OPTIMIZING DATABASE(JOINS)
+
+1.List the product name and quantity of invoice items.
+
+mysql> select Product.p_name, invoice_item.quantity from Product join invoice_item on Product.p_id = invoice_item.p_id;
++-----------------+----------+
+| p_name          | quantity |
++-----------------+----------+
+| Leather Wallet  |        5 |
+| Leather Wallet  |        5 |
+| Men Jeans       |        5 |
+| Pen             |        2 |
+| Pen             |        2 |
+| Notebook        |        1 |
+| Leather Wallet  |        1 |
+| Bluetooth Mouse |        2 |
+| Men Shirt       |        1 |
+| Men Jeans       |        1 |
+| Wrist Watch     |        1 |
+| School Bag      |        2 |
++-----------------+----------+
+12 rows in set (0.00 sec)
+
+2.Display the customer name ,product name,invoice date of purchased item 'pen'.
+
+mysql> SELECT Customer.name, Product.p_name,invoice_master.inv_date FROM Customer NATURAL JOIN invoice_master NATURAL JOIN invoic
+e_item NATURAL JOIN Product WHERE p_name='Pen';
++----------+--------+------------+
+| name     | p_name | inv_date   |
++----------+--------+------------+
+| Abhishek | Pen    | 2025-09-01 |
+| Sidhu    | Pen    | 2025-09-12 |
++----------+--------+------------+
+2 rows in set (0.00 sec)
+
+
+3)Display all customer details and invoice details must include customer has not purchased item.
+
+mysql> select Customer.cust_id,Customer.name,invoice_master.inv_id from Customer left join invoice_master on Customer.cust_id=invoice_master.cust_id;
++---------+----------+--------+
+| cust_id | name     | inv_id |
++---------+----------+--------+
+|       3 | Sidhu    |   1011 |
+|       5 | Abhishek |   1001 |
+|       5 | Abhishek |   1002 |
+|       5 | Abhishek |   1003 |
+|       5 | Abhishek |   1004 |
+|       5 | Abhishek |   1005 |
+|       5 | Abhishek |   1006 |
+|       5 | Abhishek |   1007 |
+|       5 | Abhishek |   1008 |
+|       5 | Abhishek |   1009 |
+|       5 | Abhishek |   1010 |
+|      11 | Amit     |   1012 |
+|      12 | Neha     |   1013 |
+|      13 | Rahul    |   1014 |
+|      14 | Sneha    |   NULL |
+|      15 | Abhishek |   NULL |
+|      16 | Priya    |   1015 |
+|      17 | Karan    |   NULL |
+|      18 | Meera    |   NULL |
+|      19 | Vikram   |   NULL |
+|      20 | Anjali   |   NULL |
++---------+----------+--------+
+21 rows in set (0.00 sec)
+
