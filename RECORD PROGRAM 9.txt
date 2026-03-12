@@ -1,0 +1,22 @@
+OPTIMIZING DATABASE:(using set,arithematic,logical and special operators)
+
+1.Display customer details who doesn't have phone number and lives in 'calicut' city(use logical operators)
+mysql> select * from Customer where ph_no is NULL and city='Jaipur';
++---------+-------+--------------+--------+-------+
+| cust_id | name  | address      | city   | ph_no |
++---------+-------+--------------+--------+-------+
+|      17 | Karan | Station Road | Jaipur | NULL  |
++---------+-------+--------------+--------+-------+
+1 row in set (0.00 sec)
+
+2.List the product names if it finds any records in the invoice items table has quantity=2(use special operator)
+mysql> select p_name from Product where p_id in(select p_id from invoice_item where quantity=2);
++-----------------+
+| p_name          |
++-----------------+
+| Pen             |
+| Bluetooth Mouse |
+| School Bag      |
++-----------------+
+3 rows in set (0.00 sec)
+
