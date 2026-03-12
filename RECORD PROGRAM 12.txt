@@ -1,0 +1,27 @@
+PL/SQL PROGRAMS – TRIGGERS 
+
+1. Create a trigger to handle inserts to the product relation ( if price < 20 the set price to 40).
+
+mysql> delimiter //
+mysql> create trigger prod_relation 
+    -> before insert on Product for each row 
+    -> begin
+    -> if new.price<20
+    -> then
+    -> set new.price=40;
+    -> end if;
+    -> end //
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> insert into Product values(105,'Pencil',6.50); //
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from Product where p_id=105; //
++------+--------+-------+
+| p_id | p_name | price |
++------+--------+-------+
+|  105 | Pencil | 40.00 |
++------+--------+-------+
+1 row in set (0.00 sec)
+
+
