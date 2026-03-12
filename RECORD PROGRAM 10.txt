@@ -1,0 +1,50 @@
+PL/SQL PROGRAMS (STORED PROCEDURES)
+
+1. Create a procedure to find greatest of 3 numbers. 
+
+mysql> DELIMITER $$
+mysql> CREATE PROCEDURE greatest3(IN a INT, IN b INT, IN c INT, OUT g INT)
+    -> BEGIN
+    -> IF a > b AND a > c THEN
+    -> SET g=a;
+    -> ELSEIF b > c THEN
+    -> SET g=b;
+    -> ELSE
+    -> SET g=c;
+    -> END IF;
+    -> END $$
+Query OK, 0 rows affected (0.02 sec)
+mysql> call greatest3(10,59,100,@result) $$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select @result $$
++---------+
+| @result |
++---------+
+|     100 |
++---------+
+1 row in set (0.00 sec)
+
+
+2. Create a procedure to display invoice details of a particular customer.
+
+mysql> delimiter $$
+mysql> create procedure invoice_details(in cid int)
+    -> begin 
+    -> select Customer.name,
+    -> invoice_master.inv_id,
+    -> invoice_master.inv_date,
+    -> invoice_item.p_id,
+    -> invoice_item.quantity from Customer join invoice_master on Customer.cust_id=invoice_master.cust_id join invoice_item on invoice_master.inv_id=invoice_item.inv_id where Customer.cust_id=cid;
+    -> end $$
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call invoice_details(12) $$
++------+--------+------------+------+----------+
+| name | inv_id | inv_date   | p_id | quantity |
++------+--------+------------+------+----------+
+| Neha |   1013 | 2025-09-14 |  201 |        1 |
+| Neha |   1013 | 2025-09-14 |  202 |        1 |
++------+--------+------------+------+----------+
+2 rows in set (0.00 sec)
+
