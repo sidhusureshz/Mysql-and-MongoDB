@@ -1,0 +1,45 @@
+ACCESSING DATABASE(VIEWS)
+
+1.Create a view for customers who have purchased products.
+
+mysql> create view purchased_cust as select distinct Customer.cust_id, Customer.name from Customer join invoice_master on Customer.cust_id=invoice_master.cust_id;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from purchased_cust;
++---------+----------+
+| cust_id | name     |
++---------+----------+
+|       3 | Sidhu    |
+|       5 | Abhishek |
+|      11 | Amit     |
+|      12 | Neha     |
+|      13 | Rahul    |
+|      16 | Priya    |
++---------+----------+
+6 rows in set (0.01 sec)
+
+2.create a view for invoice products[cname,inv_id,product_id,quantity]in mysql.
+
+mysql> CREATE VIEW invoice_products AS SELECT Customer.name, invoice_master.inv_id, invoice_item.p_id, invoice_item.quantity FROM Customer JOIN invoice_master ON Customer.cust_id = invoice_master.cust_id JOIN invoice_item ON invoice_master.inv_id = invoice_item.inv_id;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> select * from invoice_products;
++----------+--------+------+----------+
+| name     | inv_id | p_id | quantity |
++----------+--------+------+----------+
+| Abhishek |   1002 |  203 |        5 |
+| Abhishek |   1002 |  203 |        5 |
+| Abhishek |   1001 |  202 |        5 |
+| Abhishek |   1001 |  101 |        2 |
+| Sidhu    |   1011 |  101 |        2 |
+| Sidhu    |   1011 |  102 |        1 |
+| Amit     |   1012 |  203 |        1 |
+| Amit     |   1012 |  207 |        2 |
+| Neha     |   1013 |  201 |        1 |
+| Neha     |   1013 |  202 |        1 |
+| Rahul    |   1014 |  204 |        1 |
+| Priya    |   1015 |  206 |        2 |
++----------+--------+------+----------+
+12 rows in set (0.00 sec)
+
+
