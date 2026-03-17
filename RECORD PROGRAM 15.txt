@@ -1,0 +1,53 @@
+RETRIEVING DATA
+
+1. Write a MongoDB query to display the customer documents having city ‘wayanad’,’malappuram’. 
+INVOICE> db.Customer.find({ $or: [{ city: "Wayanad" }, { city: "malappuram" }] })
+[
+  {
+    _id: ObjectId('69b7aa1f1d9bf3d34c32a03d'),
+    cust_id: 2,
+    Name: 'George',
+    city: 'Wayanad',
+    Phone: '0139208038'
+  },
+  {
+    _id: ObjectId('69b7aa1f1d9bf3d34c32a03f'),
+    cust_id: 4,
+    Name: 'shifan',
+    city: 'malappuram',
+    Phone: '092348748'
+  }
+]
+
+
+ 2. Write a MongoDB query to display all product documents their price >10. 
+ INVOICE> db.Product.find({ price: { $gt:10 } })
+[
+  {
+    _id: ObjectId('69b7ab66deaacb785732a03d'),
+    p_name: 'Notebook',
+    price: 50
+  }db.CUSTOMER.find({ city: { $ne: "tvm" } })
+]
+
+ 
+ 3. Write a MongoDB query to find customer documents who not live in ‘Wayanad’.
+ 
+ INVOICE> db.Customer.find({ city: { $ne: "Wayanad" } })
+[
+  {
+    _id: ObjectId('69b7aa1f1d9bf3d34c32a03e'),
+    cust_id: 3,
+    Name: 'Ummar',
+    city: 'Chennai',
+    Phone: '999984930'
+  },
+  {
+    _id: ObjectId('69b7aa1f1d9bf3d34c32a03f'),
+    cust_id: 4,
+    Name: 'shifan',
+    city: 'malappuram',
+    Phone: '092348748'
+  }
+]
+
