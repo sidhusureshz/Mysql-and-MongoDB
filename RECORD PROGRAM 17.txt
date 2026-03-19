@@ -1,0 +1,47 @@
+ADMINISTRATION & SHELL COMMANDS
+
+1. Write a MongoDB query to create a user “CUSTOMER1” and grant the read role in the INVOICE database. 
+
+INVOICE> db.createUser({ user: "CUSTOMER1", pwd: "password123", roles: [{ role: "read", db: "INVOICE" }] })
+{ ok: 1 }
+INVOICE> db.getUser("CUSTOMER1")
+{
+  _id: 'INVOICE.CUSTOMER1',
+  userId: UUID('5637a2ad-b592-4784-9742-cdfb9844f2a1'),
+  user: 'CUSTOMER1',
+  db: 'INVOICE',
+  roles: [ { role: 'read', db: 'INVOICE' } ],
+  mechanisms: [ 'SCRAM-SHA-1', 'SCRAM-SHA-256' ]
+}
+
+ 2. Write a MongoDB query to create the backup for the INVOICE database. 
+ ksb@ksb-H410M-H-V2:~$ mongodump --db INVOICE
+2026-03-19T14:54:21.837+0530	writing INVOICE.Customer to dump/INVOICE/Customer.bson
+2026-03-19T14:54:21.837+0530	writing INVOICE.Product to dump/INVOICE/Product.bson
+2026-03-19T14:54:21.838+0530	done dumping INVOICE.Customer (5 documents)
+2026-03-19T14:54:21.838+0530	done dumping INVOICE.Product (3 documents)
+
+ 3. Write a MongoDB query to restore a particular database or a collection. 
+ ksb@ksb-H410M-H-V2:~$ mongodump --db ksb
+2026-03-19T15:03:35.931+0530	writing ksb.Customer to dump/ksb/Customer.bson
+2026-03-19T15:03:35.931+0530	writing ksb.MCA to dump/ksb/MCA.bson
+2026-03-19T15:03:35.933+0530	done dumping ksb.Customer (2 documents)
+2026-03-19T15:03:35.933+0530	done dumping ksb.MCA (0 documents)
+
+ksb> db.dropDatabase()
+{ ok: 1, dropped: 'ksb' }
+ksb> 
+ksb@ksb-H410M-H-V2:~$ mongorestore --db ksb
+2026-03-19T15:21:48.978+0530	The --db and --collection flags are deprecated for this use-case; please use --nsInclude instead, i.e. with --nsInclude=${DATABASE}.${COLLECTION}
+2026-03-19T15:21:48.979+0530	using default 'dump' directory
+2026-03-19T15:21:48.979+0530	building a list of collections to restore from dump dir
+2026-03-19T15:21:48.979+0530	don't know what to do with subdirectory "dump/INVOICE", skipping...
+2026-03-19T15:21:48.979+0530	don't know what to do with subdirectory "dump/ksb", skipping...
+2026-03-19T15:21:48.979+0530	0 document(s) restored successfully. 0 document(s) failed to restore.
+
+ 
+ 4. Write a MongoDB query to create an index for the collection customer using the field customer_name.
+ INVOICE> db.Customer.createIndex({ customer_name: 1 })
+customer_name_1
+
+
